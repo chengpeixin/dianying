@@ -1,0 +1,11 @@
+# dependencies
+node_modules
+
+# Nuxt generate
+dist
+
+# System
+.DS_Store
+
+# Build
+build
