@@ -7,5 +7,8 @@ dist
 # System
 .DS_Store
 
+# chrome
+chrome
+
 # Build
 build

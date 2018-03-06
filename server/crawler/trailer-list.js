@@ -9,9 +9,10 @@ const slleep =time=>{return new Promise(resolve=>{setTimeout(resolve,time)})}
     headless: false
   });
   const page = await browser.newPage();
-  await page.goto('https://movie.douban.com/tag/#/?sort=R&range=0,10&tags=%E7%94%B5%E5%BD%B1');
+  await page.goto('https://movie.douban.com/tag/#/?sort=R&range=0,10&tags=%E7%94%B5%E5%BD%B1',{waitUntil:"networkidle2"});
+  await page.waitForSelector('.more')  
   await slleep(3000)
-  await page.awaitForSelector('.more')
+  await page.click('.more')
 
   for (let i=0;i<1;i++){
     await slleep(3000)
@@ -25,13 +26,13 @@ const slleep =time=>{return new Promise(resolve=>{setTimeout(resolve,time)})}
     if (items.length>=1){
       items.each(function(i,v){
         var it = $(v)
-        var doubanID = it.find('div').data('id')
+        var doubanID = it.children('div').data('id')
         var title = it.find('.title').text()
         var rate = Number(it.find('.rate').text())
         var poster = it.find('img').attr('src').replace('s_ratio','l_ratio')
 
         links.push({
-          doubanid,
+          doubanID,
           title,
           rate,
           poster
