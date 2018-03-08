@@ -4,13 +4,15 @@ const slleep =time=>{return new Promise(resolve=>{setTimeout(resolve,time)})}
   console.log('crawler run start')
   const browser = await puppeteer.launch({
     args:['--no--sandbox'],
-    dumpio:false,
     executablePath: './../../chrome/chrome',
     headless: false
   });
+
+
   const page = await browser.newPage();
+
   await page.goto('https://movie.douban.com/tag/#/?sort=R&range=0,10&tags=%E7%94%B5%E5%BD%B1',{waitUntil:"networkidle2"});
-  await page.waitForSelector('.more')  
+  await page.waitForSelector('.more')
   await slleep(3000)
   await page.click('.more')
 
@@ -42,6 +44,7 @@ const slleep =time=>{return new Promise(resolve=>{setTimeout(resolve,time)})}
     }
   })
   browser.close();
-
-  console.log(result)
+  process.send({result})
+  process.exit(0)
+  // console.log(result)
 })();
