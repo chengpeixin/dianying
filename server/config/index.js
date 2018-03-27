@@ -1,18 +1,8 @@
-const aliAkSk = {
-  "region": "oss-cn-beijing",
-  "accessKeyId": "LTAIBiheW4JepMbo",
-  "accessKeySecret": "wVYX5X48TaThphXlYQ6bMst2sJZKkl"
-}
 module.exports = {
-  "aliOsscled": aliAkSk
+  "qiniu": {
+    "bucket": "douban",
+    "video": "p6967l5dl.bkt.clouddn.com",
+    "AK": "jpuZQXF9-Hv9lbiykxJ4QyPCjkmTTqfwr2JcjUrP",
+    "SK": "K9f_LCnNwJVwNO2TJ4odR5RgMb_Gka1bUbpVL3Jy"
+  }
 }
-
-
-// co(function* () {
-//   client.useBucket('xpcdouban')
-//   const result = yield client.list()
-//   // var result = yield client.put('objecEEE', __dirname + "/index.js");
-//   console.log(result)
-// }).catch(function (err) {
-//   console.log(err)
-// })
