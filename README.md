@@ -15,9 +15,9 @@ git clone https://github.com/chengpeixin/dianying.git
 
 cd dianying
 
-npm install || yarn
+yarn
 
-npm start || yarn start
+yarn start
 ```
 
 # command
