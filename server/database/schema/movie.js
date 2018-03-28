@@ -3,7 +3,10 @@ const Schema = mongoose.Schema
 const Mixed = Schema.Types.Mixed
 
 const movieSchema = new Schema({
-  doubanId: String,
+  doubanId: {
+    unique: true,
+    type: String
+  },
   rate: Number,
   title: String,
   summary: String,
@@ -31,4 +34,13 @@ const movieSchema = new Schema({
     }
   }
 })
+movieSchema.pre('save', next => {
+  if (this.isNew) {
+    this.meta.createdAt = this.mate.updatedAt = Date.now()
+  } else {
+    this.mate.updatedAt = Date.now()
+  }
+  next()
+})
+
 mongoose.model('Movie', movieSchema)

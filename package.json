@@ -9,6 +9,7 @@
   "dependencies": {
     "address": "^1.0.3",
     "ali-oss": "^4.13.2",
+    "bcrypt": "^1.0.3",
     "bootstrap": "^4.0.0",
     "bplayer": "^1.0.7",
     "co": "^4.6.0",
