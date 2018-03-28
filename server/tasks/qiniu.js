@@ -34,18 +34,17 @@ const uploadToQiniu = async (url, key) => {
     poster: 'https://img3.doubanio.com/view/photo/l_ratio_poster/public/p2512933684.jpg'
   }]
   movies.map(async movie => {
-    console.log(movie)
     if (movie.video && !movie.key) {
       try {
         let videData = await uploadToQiniu(movie.video, nanoid() + '.mp4')
-        let posterData = await uploadToQiniu(movie.video, poster() + '.png')
+        let posterData = await uploadToQiniu(movie.poster, nanoid() + '.png')
         if (videData.key) {
           movie.videoKey = videData
         }
+        console.log('上传完成')
         if (posterData.key) {
           movie.posterData = posterData
         }
-        console.log(movie)
       } catch (error) {
         console.log(error)
       }
