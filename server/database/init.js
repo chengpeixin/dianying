@@ -1,6 +1,11 @@
 const mongoose = require('mongoose')
 const db = 'mongodb://localhost/douban-trailer'
 mongoose.Promise = global.Promise
+const glob = require('glob')
+const path = require('path')
+exports.initSchema = () => {
+  glob.sync(path.resolve(__dirname, './schema', '**/*.js')).forEach(require)
+}
 
 exports.connect = () => {
   let maxConnectTimes = 0
@@ -26,15 +31,15 @@ exports.connect = () => {
       }
     })
     mongoose.connection.once('open', () => {
-      let Dog = mongoose.model('Dog', {
-        name: String
-      })
-      const doga = new Dog({
-        'name': "阿尔法"
-      })
-      doga.save().then(() => {
-        console.log('汪')
-      })
+      // let Dog = mongoose.model('Dog', {
+      //   name: String
+      // })
+      // const doga = new Dog({
+      //   'name': "阿尔法"
+      // })
+      // doga.save().then(() => {
+      //   console.log('汪')
+      // })
       resolve()
       console.log('MongoDB Connected sussessfully')
     })

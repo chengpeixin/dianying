@@ -47,7 +47,7 @@ const userSchema = new Schema({
 userSchema.virtual('isLocked').get(() => {
   return !!(this.lockUntil && this.lockUntil > Date.now())
 })
-userSchema.pre('save', next => {
+userSchema.pre('save', function (next) {
   if (this.isNew) {
     this.meta.createdAt = this.mate.updatedAt = Date.now()
   } else {
@@ -56,7 +56,7 @@ userSchema.pre('save', next => {
   next()
 })
 
-userSchema.pre('save', next => {
+userSchema.pre('save', function (next) {
   if (!user.ismodified('password')) return next()
   bcrypt.genSalt(SALT_WORK_FACTOR, (err, salt) => {
     if (err) return next(err)

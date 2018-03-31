@@ -1,24 +1,37 @@
 const cp = require('child_process')
-const { resolve } = require('path')
-
-;(async ()=>{
-    const script = resolve(__dirname,'../crawler/trailer-list.js')
-    const child = cp.fork(script,[])
+const {
+    resolve
+} = require('path')
+const mongoose = require('mongoose')
+const Movie = mongoose.model('Movie');
+(async () => {
+    const script = resolve(__dirname, '../crawler/trailer-list.js')
+    const child = cp.fork(script, [])
     let invoked = false
 
-    child.on('error',err=>{
+    child.on('error', err => {
         if (invoked) return
         invoked = true
         // console.log(err)
     })
-    child.on('exit',code =>{
+    child.on('exit', code => {
         if (invoked) return
         invoked = true
-        let err = code ===0 ? 'is ok' :new Error('exit code'+code)
+        let err = code === 0 ? 'is ok' : new Error('exit code' + code)
         // console.log(err)
     })
-    child.on('message',data=>{
+    child.on('message', data => {
         let result = data.result
+        result.forEach(async item => {
+            let movie = await Movie.findOne({
+                doubanId: item.doubanId
+            })
+            // 没有就存储到数据库
+            if (!movie) {
+                movie = new Movie(item)
+                await movie.save()
+            }
+        })
         console.log(result)
     })
-})() 
+})()
